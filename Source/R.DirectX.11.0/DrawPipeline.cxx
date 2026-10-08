@@ -1,6 +1,8 @@
 #include "DrawState.hxx"
 #include "Textures.hxx"
 
+#include <cstring>
+
 namespace Renderer::DX11::Draw
 {
     namespace
@@ -21,6 +23,8 @@ namespace Renderer::DX11::Draw
             constants.Flags[0] = HasMode(mode, RendererMode::U0x1) ? 1.0f : 0.0f;
             constants.Flags[1] = HasMode(mode, RendererMode::U0x2) ? 1.0f : 0.0f;
             constants.Flags[2] = static_cast<f32>(Current.AlphaRef);
+            constants.Flags[3] = HasMode(mode, RendererMode::U0x8) ? 1.0f : 0.0f;
+            std::memcpy(constants.FogColor, Current.FogColor, sizeof(constants.FogColor));
 
             return constants;
         }

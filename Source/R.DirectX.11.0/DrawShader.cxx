@@ -13,6 +13,7 @@ cbuffer Constants : register(b0)
     float2 Viewport;
     float2 Padding;
     float4 Flags;
+    float4 FogColor;
 };
 
 Texture2D Diffuse : register(t0);
@@ -22,6 +23,7 @@ struct VertexInput
 {
     float4 Position : POSITION;
     float4 Color : COLOR;
+    float4 Specular : COLOR1;
     float2 Uv : TEXCOORD0;
 };
 
@@ -29,6 +31,7 @@ struct PixelInput
 {
     float4 Position : SV_POSITION;
     float4 Color : COLOR;
+    float4 Specular : COLOR1;
     float2 Uv : TEXCOORD0;
 };
 
@@ -40,6 +43,7 @@ PixelInput VertexMain(VertexInput input)
     const float y = 1.0f - input.Position.y / Viewport.y * 2.0f;
     output.Position = float4(x * w, y * w, input.Position.z * w, w);
     output.Color = input.Color;
+    output.Specular = input.Specular;
     output.Uv = input.Uv;
     return output;
 }
@@ -48,6 +52,7 @@ float4 PixelMain(PixelInput input) : SV_TARGET
 {
     float4 color = input.Color;
     if (Flags.x > 0.5f) { color *= Diffuse.Sample(Sampler, input.Uv); }
+    if (Flags.w > 0.5f) { color.rgb = lerp(FogColor.rgb, color.rgb, input.Specular.a); }
     if (Flags.y > 0.5f && color.a * 255.0f <= Flags.z) { discard; }
     return color;
 }
@@ -58,6 +63,8 @@ float4 PixelMain(PixelInput input) : SV_TARGET
                 offsetof(Vertex, Position), D3D11_INPUT_PER_VERTEX_DATA, 0 },
             { "COLOR", 0, DXGI_FORMAT_B8G8R8A8_UNORM, 0,
                 offsetof(Vertex, Diffuse), D3D11_INPUT_PER_VERTEX_DATA, 0 },
+            { "COLOR", 1, DXGI_FORMAT_B8G8R8A8_UNORM, 0,
+                offsetof(Vertex, Specular), D3D11_INPUT_PER_VERTEX_DATA, 0 },
             { "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0,
                 offsetof(Vertex, Uv), D3D11_INPUT_PER_VERTEX_DATA, 0 },
         };

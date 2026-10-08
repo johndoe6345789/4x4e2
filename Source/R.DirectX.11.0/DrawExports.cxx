@@ -36,6 +36,17 @@ namespace Renderers::Modules
         return TRUE;
     }
 
+    extern "C" u32 SetFog(const f32 r, const f32 g, const f32 b, const f32 start, const f32 end)
+    {
+        // Pre-transformed vertices carry their fog factor in specular alpha, so the range is unused.
+        (void)start;
+        (void)end;
+
+        Renderer::DX11::Draw::SetFogColor(r, g, b);
+
+        return TRUE;
+    }
+
     extern "C" u32 SetTextureClamp(const RendererClampMode u, const RendererClampMode v,
         const u32 indx)
     {

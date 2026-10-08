@@ -22,6 +22,13 @@ namespace Renderer::DX11::Draw
         Current.AlphaRef = value;
     }
 
+    void SetFogColor(const f32 r, const f32 g, const f32 b)
+    {
+        Current.FogColor[0] = r;
+        Current.FogColor[1] = g;
+        Current.FogColor[2] = b;
+    }
+
     void SetClamp(const u32 stage, const Renderers::RendererClampMode u,
         const Renderers::RendererClampMode v)
     {

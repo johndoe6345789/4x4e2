@@ -44,6 +44,7 @@ namespace Renderer::DX11::Draw
             output.Position[3] = input.Unk04;
 
             output.Diffuse = PackColor(input.Unk12, input.Unk11, input.Unk10, input.Unk13);
+            output.Specular = PackColor(0.0f, 0.0f, 0.0f, 1.0f - input.Unk14);
 
             output.Uv[0] = input.Unk08;
             output.Uv[1] = input.Unk09;

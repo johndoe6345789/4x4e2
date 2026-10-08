@@ -74,13 +74,6 @@ namespace Renderers::Modules
         return FALSE;
     }
 
-    extern "C" u32 SetFog(const f32 start, const f32 end, const f32 r, const f32 g, const f32 b)
-    {
-        Renderer::DX11::Trace::Call("SetFog");
-        (void)start; (void)end; (void)r; (void)g; (void)b;
-        return FALSE;
-    }
-
     extern "C" u32 SetMultiTextureBlend(const RendererBlendOperation op)
     {
         Renderer::DX11::Trace::Call("SetMultiTextureBlend", static_cast<u32>(op));

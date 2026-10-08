@@ -16,5 +16,6 @@ namespace Renderer::DX11::Draw
     void SetDestinationBlend(Renderers::RendererDestinationBlend mode);
     void SetCulling(Renderers::RendererCullMode mode);
     void SetAlphaRef(u32 value);
+    void SetFogColor(f32 r, f32 g, f32 b);
     void SetClamp(u32 stage, Renderers::RendererClampMode u, Renderers::RendererClampMode v);
 }

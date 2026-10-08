@@ -12,6 +12,7 @@ namespace Renderer::DX11::Draw
     {
         f32 Position[4];
         u32 Diffuse;
+        u32 Specular;
         f32 Uv[2];
     };
 
@@ -20,10 +21,12 @@ namespace Renderer::DX11::Draw
         f32 Viewport[2];
         f32 Padding[2];
         f32 Flags[4];
+        f32 FogColor[4];
     };
 
     struct Settings
     {
+        f32 FogColor[4] = {};
         Renderers::RendererSourceBlendMode SourceBlend = Renderers::RendererSourceBlendMode::Alpha;
         Renderers::RendererDestinationBlend DestinationBlend = Renderers::RendererDestinationBlend::InverseAlpha;
         Renderers::RendererCullMode Cull = Renderers::RendererCullMode::CCW;
